@@ -2,13 +2,11 @@ package main
 
 import (
 
-
-
-	"proxyip/get"
-	"proxyip/web"
+	"github.com/mikeweiwei/proxyip/get"
+	"github.com/mikeweiwei/proxyip/web"
 	"sync"
-	"proxyip/model"
-	"proxyip/put"
+	"github.com/mikeweiwei/proxyip/model"
+	"github.com/mikeweiwei/proxyip/put"
 	"log"
 	"runtime"
 	//"time"
@@ -23,13 +21,18 @@ func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	ipChan := make(chan *model.Ip, 2000)
+
+	//connection DB and creat table
 	put.Init()
 
+	//open web api
 	go func() {
 		web.WebRun()
 
 	}()
 
+
+	//check in DB
 	go func() {
 		put.CheckDB()
 	}()
@@ -38,7 +41,9 @@ func main() {
 	//	pr(ipChan)
 	//}()
 
-	for i := 0; i < 50; i++ {
+
+	//check chan to DB
+	for i := 0; i < 100; i++ {
 		go func() {
 			for {
 				put.Check(<-ipChan)
@@ -46,6 +51,7 @@ func main() {
 		}()
 	}
 
+	//spider to chan
 	for {
 		log.Printf("Chan: %v", len(ipChan))
 		if len(ipChan) < 100 {
@@ -66,6 +72,7 @@ func run(ipChan chan *model.Ip)  {
 		get.GetIP336,
 		get.Data5u,
 		get.PLP,
+		get.IP181,
 	}
 	for _,f := range funs{
 		wg.Add(1)

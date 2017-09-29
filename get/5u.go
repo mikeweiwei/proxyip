@@ -6,7 +6,7 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/parnurzeal/gorequest"
-	"proxyip/model"
+	"github.com/mikeweiwei/proxyip/model"
 )
 
 // Data5u get ip from data5u.com

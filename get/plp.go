@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
-	"proxyip/model"
+	"github.com/mikeweiwei/proxyip/model"
 	"github.com/parnurzeal/gorequest"
 )
 

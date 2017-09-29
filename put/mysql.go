@@ -5,7 +5,7 @@ import (
 	_"github.com/go-sql-driver/mysql"
 	"log"
 	"fmt"
-	"proxyip/model"
+	"github.com/mikeweiwei/proxyip/model"
 )
 
 func Init()  {
@@ -28,6 +28,8 @@ func creaTable()  {
 	stmt1, err := db.Prepare(cr_table)
 	checkErr(err)
 	_, err = stmt1.Exec()
+	defer stmt1.Close()
+	log.Println("table sucsess！")
 	checkErr(err)
 
 }
@@ -120,12 +122,30 @@ func count() int {
 //查询具体类型ip
 func FindType(iptype string) ([]*model.Ip) {
 
+
+	var parme string
+	if iptype == "http" || iptype == "HTTP"{
+		iptype = "%http%"
+		parme = "https"
+	}else if iptype == "https" || iptype == "HTTPS" {
+		iptype = "%https%"
+		parme = "http"
+	}
+
 	var ips []*model.Ip
-	rows, error := db.Query("select * FROM ip WHERE iptype = ?", iptype)
+	rows, error := db.Query("select * FROM ip WHERE iptype LIKE ? AND iptype != ?", iptype,parme)
+
+	if iptype == "all"  || iptype == "ALL"{
+		iptype = "http,https"
+		parme = "https,http"
+		rows, error = db.Query("select * FROM ip WHERE iptype = ? or iptype = ?", iptype,parme)
+	}
+
 	defer rows.Close()
 	if error != nil{
 		fmt.Println("find type false",error.Error())
 	}
+
 	for rows.Next(){
 		var id int
 		var ip, iptype string
@@ -134,7 +154,6 @@ func FindType(iptype string) ([]*model.Ip) {
 		ipOne.Ip = ip
 		ipOne.IpType = iptype
 		ips = append(ips,ipOne)
-		fmt.Println("uid:", id, "ip:", ip, "iptype:", iptype)
 	}
 	return ips
 }

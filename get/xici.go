@@ -4,7 +4,7 @@ import (
 	"log"
 	"github.com/parnurzeal/gorequest"
 	"github.com/PuerkitoBio/goquery"
-	"proxyip/model"
+	"github.com/mikeweiwei/proxyip/model"
 	"strconv"
 )
 

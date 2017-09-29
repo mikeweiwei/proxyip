@@ -3,7 +3,7 @@ package web
 import (
 	"net/http"
 	"encoding/json"
-	"proxyip/put"
+	"github.com/mikeweiwei/proxyip/put"
 	"log"
 	"strings"
 )

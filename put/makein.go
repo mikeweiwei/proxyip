@@ -1,16 +1,15 @@
 package put
 
 import (
-	"proxyip/model"
-	"proxyip/check"
+	"github.com/mikeweiwei/proxyip/model"
+	"github.com/mikeweiwei/proxyip/check"
 	"log"
-	"sync"
 )
 
 var db = DB()
 
 func Check(ip *model.Ip) {
-	if check.CheckIP(ip.Ip) {
+	if check.CheckIP(ip.Ip) == true {
 		insertOne(db,ip.Ip,ip.IpType)
 	}else {
 		log.Printf("ip false --->" + ip.Ip)
@@ -18,21 +17,22 @@ func Check(ip *model.Ip) {
 }
 
 func CheckDB() {
+
 	sum := count()
 	log.Printf("befor checkDB size:(%v)",sum)
 	all := FindAll()
-	var wg sync.WaitGroup
+
 	for _,v := range all{
-		wg.Add(1)
-		go func() {
-			if !check.CheckIP(v.Ip) {
+
+
+			if check.CheckIP(v.Ip) == false {
 				deleteOne(v.Ip,v.IpType)
 			}
-			wg.Done()
-		}()
+
+
 	}
 
-	wg.Wait()
+
 	sum = count()
 	log.Printf("after checkDB size:(%v)",sum)
 
