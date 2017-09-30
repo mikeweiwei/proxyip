@@ -7,11 +7,11 @@ README
 ## 说明
 * [get fetch ip]
 * [check ip]
-* [put操作mysql]
+* [put mysql]
 * [model ip struct]
 * [web some api]
-    * /v1/all 获取所有代理ip
-    * /v1/type 获取指定类型代理ip（？type=http/https/all 三种类型）
+    * /v1/all get all proxy ip
+    * /v1/type get proxy ip by type（parameter ？type=http/https/all）
 * [main]
     * connection DB and create table
     * check in DB and delete
