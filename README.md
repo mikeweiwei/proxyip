@@ -1,10 +1,8 @@
 # ProxyIp
-README
 ===========================
 ****
 ### Author:mikeweiwei
 ****
-## 说明
 * [get fetch ip]
 * [check ip]
 * [put mysql]
