@@ -10,13 +10,12 @@ import (
 
 const VERSION  = "/v1"
 
-	func WebRun()  {
+func WebRun()  {
 	
 	http.HandleFunc(VERSION + "/all",GetAllHandler)
 	http.HandleFunc(VERSION + "/type",GetTypeHandler)
 	log.Println("Starting server", "9999")
 	http.ListenAndServe(":9999", nil)
-
 
 }
 

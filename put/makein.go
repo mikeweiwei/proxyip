@@ -23,13 +23,9 @@ func CheckDB() {
 	all := FindAll()
 
 	for _,v := range all{
-
-
 			if check.CheckIP(v.Ip) == false {
 				deleteOne(v.Ip,v.IpType)
 			}
-
-
 	}
 
 

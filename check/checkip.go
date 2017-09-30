@@ -2,6 +2,7 @@ package check
 
 import (
 	"github.com/parnurzeal/gorequest"
+	//"log"
 	"log"
 )
 

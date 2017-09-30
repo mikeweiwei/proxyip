@@ -7,6 +7,7 @@ import (
 	"sync"
 	"github.com/mikeweiwei/proxyip/model"
 	"github.com/mikeweiwei/proxyip/put"
+	"github.com/robfig/cron"
 	"log"
 	"runtime"
 	//"time"
@@ -34,7 +35,16 @@ func main() {
 
 	//check in DB
 	go func() {
-		put.CheckDB()
+		c := cron.New()
+		i := 0
+		spec := "0 */10 * * * ?"
+		c.AddFunc(spec, func() {
+			i++
+			log.Println("cron running:", i)
+			put.CheckDB()
+		})
+		c.Start()
+		select{}
 	}()
 
 	//go func() {
@@ -66,7 +76,6 @@ func main() {
 func run(ipChan chan *model.Ip)  {
 
 	var wg sync.WaitGroup
-
 
 	funs := []func() []*model.Ip{
 		get.GetIP336,

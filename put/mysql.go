@@ -94,15 +94,15 @@ func deleteOne(ip string,iptype string)  {
 
 	exec, error := db.Exec("DELETE FROM ip WHERE ip = ? AND iptype = ?", ip,iptype)
 	if error != nil{
-		fmt.Println("delete data false",error.Error())
+		log.Println("delete data false",error.Error())
 		return
 	}
 	num, err := exec.RowsAffected()
 	if err != nil {
-		fmt.Println("fetch row affected failed:", err.Error())
+		log.Println("fetch row affected failed:", err.Error())
 		return
 	}
-	fmt.Println("delete record number", num)
+	log.Println("delete record number", num)
 }
 //统计
 func count() int {
