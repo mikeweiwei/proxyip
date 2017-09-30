@@ -11,7 +11,7 @@
     * /v1/type get proxy ip by type（parameter ？type=http/https/all）
 * [main]
     * connection DB and create table
-    * check in DB and delete
-    * get spider to chan
+    * check in DB and delete (schedule task)
+    * get spider to chan (schedule task)
     * chan to DB
     
