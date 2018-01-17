@@ -37,7 +37,7 @@ func main() {
 	go func() {
 		c := cron.New()
 		i := 0
-		spec := "0 */10 * * * ?"
+		spec := "0 */1 * * * ?"
 		c.AddFunc(spec, func() {
 			i++
 			log.Println("cron running:", i)
